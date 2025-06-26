@@ -31,7 +31,7 @@ return {
 						intro_message = "Welcome to CodeCompanion! ✨ How can I assist you today?\nPress ? for options.",
 						auto_scroll = false,
 						show_references = true,
-						start_in_insert_mode = true,
+						start_in_insert_mode = false,
 					},
 				},
 				adapters = {
@@ -79,6 +79,7 @@ return {
 							---@type string|fun(adapter: CodeCompanion.Adapter): string
 							llm = function(adapter)
 								local model_name = ""
+								local adapter_icon = ""
 								if adapter.schema and adapter.schema.model and adapter.schema.model.default then
 									local model = adapter.schema.model.default
 									if type(model) == "function" then
@@ -86,7 +87,16 @@ return {
 									end
 									model_name = "(" .. model .. ")"
 								end
-								return adapter.formatted_name .. model_name
+								if adapter.schema and adapter.schema.model then
+									local adapter_name = adapter.formatted_name
+									if adapter_name == "Copilot" then
+										adapter_icon = " "
+									elseif adapter_name == "Gemini" then
+										adapter_icon = " "
+									end
+								end
+								vim.g.codecompanion_adapter = adapter_icon .. adapter.formatted_name
+								return adapter_icon .. adapter.formatted_name .. model_name
 							end,
 							---The header name for your messages
 							---@type string
