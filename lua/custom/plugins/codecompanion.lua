@@ -8,7 +8,7 @@ return {
 				suggestion = {
 					enabled = true,
 					auto_trigger = true,
-					debounce = 75,
+					debounce = 150,
 					keymap = {
 						accept = "<S-TAB>",
 						accept_word = "<C-l>",
@@ -28,10 +28,15 @@ return {
 			require("codecompanion").setup({
 				display = {
 					chat = {
-						intro_message = "Welcome to CodeCompanion! ✨ How can I assist you today?\nPress ? for options.",
 						auto_scroll = false,
 						show_references = true,
-						start_in_insert_mode = false,
+						start_in_insert_mode = true,
+					},
+					diff = {
+						enabled = true,
+						close_chat_at = 240,
+						layout = "horizontal",
+						provider = "mini_diff",
 					},
 				},
 				adapters = {
@@ -40,7 +45,7 @@ return {
 						return require("codecompanion.adapters").extend("copilot", {
 							schema = {
 								model = {
-									default = "claude-3.5-sonnet",
+									default = "claude-3.7-sonnet",
 								},
 							},
 						})
@@ -58,6 +63,7 @@ return {
 				},
 				strategies = {
 					inline = {
+						layout = "vertical",
 						keymaps = {
 							accept_change = {
 								modes = { n = "<S-TAB>" },
@@ -118,8 +124,8 @@ return {
 				"<cmd>CodeCompanionChat gemini<cr>",
 				{ desc = "[C]ode Companion: [G]emini" }
 			)
-			vim.keymap.set("v", "<leader>ci", "<cmd>CodeCompanion<cr>", { desc = "[C]ode Companion: [I]nline Chat" })
-			vim.keymap.set("n", "<leader>ci", "<cmd>CodeCompanion<cr>", { desc = "[C]ode Companion: [I]nline Chat" })
+			-- vim.keymap.set("v", "<leader>ci", "<cmd>CodeCompanion<cr>", { desc = "[C]ode Companion: [I]nline Chat" })
+			-- vim.keymap.set("n", "<leader>ci", "<cmd>CodeCompanion<cr>", { desc = "[C]ode Companion: [I]nline Chat" })
 		end,
 	},
 }
