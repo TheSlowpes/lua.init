@@ -4,6 +4,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       local codecompanion = require("custom.plugins.lualine.codecompanion_component")
+      local tmux_status = require("tmux-status")
       require("lualine").setup({
         options = {
           icons_enabled = true,
@@ -52,10 +53,16 @@ return {
           lualine_z = {},
         },
         winbar = {
-          lualine_a = {},
-          lualine_b = { "buffers" },
+          lualine_a = {
+            {
+              tmux_status.tmux_session,
+              cond = tmux_status.show,
+            },
+          },
           lualine_x = { "lsp_status" },
-          lualine_z = { codecompanion },
+          lualine_z = {
+            codecompanion,
+          },
         },
       })
     end,
