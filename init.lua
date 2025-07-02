@@ -147,9 +147,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-require("toggleterm").setup({
-  key = "<leader>t",
-})
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -179,7 +176,7 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
   "NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
-  {                           -- Adds git related signs to the gutter, as well as utilities for managing changes
+  {                            -- Adds git related signs to the gutter, as well as utilities for managing changes
     "lewis6991/gitsigns.nvim",
     opts = {
       signs = {
@@ -206,7 +203,7 @@ require("lazy").setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  {                   -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     "folke/which-key.nvim",
     event = "VimEnter", -- Sets the loading event to 'VimEnter'
     opts = {
