@@ -53,12 +53,6 @@ return {
           lualine_z = {},
         },
         winbar = {
-          lualine_a = {
-            {
-              tmux_status.tmux_session,
-              cond = tmux_status.show,
-            },
-          },
           lualine_x = { "lsp_status" },
           lualine_z = {
             codecompanion,
