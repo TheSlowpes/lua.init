@@ -130,6 +130,20 @@ return {
               filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
             })
           end,
+          ["gopls"] = function()
+            require("lspconfig").gopls.setup({
+              filetypes = { "go", "gomod", "gowork", "gotmpl" },
+              settings = {
+                gopls = {
+                  completeUnimported = true,
+                  usePlaceholders = true,
+                  analyses = {
+                    unusedparams = true
+                  }
+                }
+              }
+            })
+          end,
         },
       })
     end,
