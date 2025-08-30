@@ -43,7 +43,7 @@ return {
         adapters = {
           opts = { show_defaults = false, show_model_choices = true },
           copilot = function()
-            return require("codecompanion.adapters").extend("copilot", {
+            return require("codecompanion.adapters.http").extend("copilot", {
               schema = {
                 model = {
                   default = "claude-3.7-sonnet",
@@ -52,7 +52,7 @@ return {
             })
           end,
           gemini = function()
-            return require("codecompanion.adapters").extend("gemini", {
+            return require("codecompanion.adapters.http").extend("gemini", {
               env = { api_key = os.getenv("GEMINI_API_KEY") },
               schema = {
                 model = {
@@ -83,7 +83,7 @@ return {
           chat = {
             roles = {
               ---The header name for the LLM's messages
-              ---@type string|fun(adapter: CodeCompanion.Adapter): string
+              ---@type string|fun(adapter: CodeCompanion.HTTPAdapter): string
               llm = function(adapter)
                 local model_name = ""
                 local adapter_icon = ""
@@ -110,33 +110,34 @@ return {
               user = "kslowpes",
             },
           },
-          extensions = {
-            history = {
-              enabled = true,
-              opts = {
-                keymap = "<leader>ch",
-                auto_save = true,
-                expiration_days = 0,
-                picker = "telescope",
-                picker_keymaps = {
-                  rename = { n = "ce", i = "<M-r>" },
-                  delete = { n = "dd", i = "<M-d>" },
-                  duplicate = { n = "<M-J>", i = "<M-J" },
-                },
-                auto_generate_title = true,
-                title_generation_opts = {
-                  refresh_every_n_prompts = 3,
-                  max_refreshes = 3,
-                },
-                continue_last_chat = true,
-                delete_on_clearing_chat = false,
-                dir_to_save = vim.fn.stdpath("data") .. "/codecompanion/history",
-                enable_logging = true,
+        },
+        extensions = {
+          history = {
+            enabled = true,
+            opts = {
+              keymap = "<leader>ch",
+              auto_save = true,
+              expiration_days = 0,
+              picker = "telescope",
+              picker_keymaps = {
+                rename = { n = "ce", i = "<M-r>" },
+                delete = { n = "dd", i = "<M-d>" },
+                duplicate = { n = "<M-J>", i = "<M-J>" },
               },
+              auto_generate_title = true,
+              title_generation_opts = {
+                refresh_every_n_prompts = 3,
+                max_refreshes = 3,
+              },
+              continue_last_chat = true,
+              delete_on_clearing_chat = false,
+              dir_to_save = vim.fn.stdpath("data") .. "/codecompanion/history",
+              enable_logging = true,
             },
           },
         },
-      })
+      }
+      )
       vim.keymap.set("n", "<leader>a", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Code Companion: Chat" })
       vim.keymap.set(
         "n",
